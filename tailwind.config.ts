@@ -71,7 +71,7 @@ const config: Config = {
           black: '#000000',
           white: '#FFFFFF',
           gray: '#212121',
-          accent: '#FF4D00',
+          accent: '#96CCD8',
         },
       },
       keyframes: {
@@ -91,12 +91,17 @@ const config: Config = {
           from: { opacity: '1' },
           to: { opacity: '0' },
         },
+        'scroll': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(-50%)' },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'fade-in': 'fade-in 0.3s ease-in-out',
         'fade-out': 'fade-out 0.3s ease-in-out',
+        'scroll': 'scroll 30s linear infinite',
       },
     },
   },

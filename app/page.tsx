@@ -1,4 +1,5 @@
 import { Hero } from '@/components/Hero';
+import { ClientLogos } from '@/components/ClientLogos';
 import { Services } from '@/components/Services';
 import { FeaturedWorks } from '@/components/FeaturedWorks';
 import { LatestPosts } from '@/components/LatestPosts';
@@ -9,6 +10,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <ClientLogos />
       <Services />
       <AboutSnippet />
       <FeaturedWorks />

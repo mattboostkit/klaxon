@@ -50,7 +50,7 @@ export function Footer() {
           <div>
             <h3 className="text-xl font-semibold text-klaxon-white mb-6">Services</h3>
             <ul className="space-y-3">
-              {['Web Design', 'Branding', 'Digital Marketing', 'UI/UX Design', 'Content Creation'].map((item) => (
+              {['Creative Concept & Scripting', 'Full-Service Production', 'Post-Production & Editing', 'Motion Graphics & Animation', 'Commercial & Corporate Films', 'Live Events & Music Videos'].map((item) => (
                 <li key={item}>
                   <Link href={`/services`} className="text-klaxon-white text-opacity-80 hover:text-klaxon-accent transition-colors">
                     {item}
@@ -64,12 +64,12 @@ export function Footer() {
           <div>
             <h3 className="text-xl font-semibold text-klaxon-white mb-6">Contact</h3>
             <p className="text-klaxon-white text-opacity-80 mb-4">
-              123 Design Street<br />
-              Creative City, CC 12345
+              Unit 408, Cocoa Studios, Biscuit Factory<br />
+              Drummond Road, London, SE16 4FA
             </p>
             <p className="text-klaxon-white text-opacity-80 mb-4">
               hello@klaxon.studio<br />
-              +1 (555) 123-4567
+              0208 0580 669
             </p>
             <Link 
               href="/contact" 

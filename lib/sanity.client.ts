@@ -1,10 +1,12 @@
 import { createClient } from 'next-sanity';
+import { dataset, projectId, apiVersion } from '@/sanity/env';
 
 export const client = createClient({
-  projectId: 'lcql4dst', // Replace with your actual project ID
-  dataset: 'production',
-  apiVersion: '2024-04-20',
-  token: process.env.SANITY_API_TOKEN,
+  projectId,
+  dataset,
+  apiVersion,
+  // Only use the token for authenticated requests, not for public content
+  // token: process.env.SANITY_API_TOKEN,
   useCdn: process.env.NODE_ENV === 'production',
 });
 

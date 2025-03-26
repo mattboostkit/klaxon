@@ -1,46 +1,46 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Layers, Palette, LineChart, Layout, Code, Share2 } from 'lucide-react';
+import { PenTool, Film, Scissors, Sparkles, Video, Music } from 'lucide-react';
 import Link from 'next/link';
 
 const services = [
   {
-    icon: <Palette size={36} />,
-    title: 'Branding',
-    description: 'We create distinctive brand identities that resonate with your audience and stand out in the market.',
-    href: '/services',
+    icon: <PenTool size={36} />,
+    title: 'Creative Concept & Scripting',
+    description: 'We craft compelling narratives tailored to your vision, developing scripts and storyboards that captivate audiences and reflect your brand\'s unique voice.',
+    href: '/services'
   },
   {
-    icon: <Layout size={36} />,
-    title: 'Web Design',
-    description: 'Our custom websites are built to represent your brand, engage visitors, and drive conversions.',
-    href: '/services',
+    icon: <Film size={36} />,
+    title: 'Full-Service Production',
+    description: 'Our four-person crew handles everything from scouting locations to operating state-of-the-art cameras, ensuring your shoot runs smoothly and delivers top-quality footage.',
+    href: '/services'
   },
   {
-    icon: <Code size={36} />,
-    title: 'Development',
-    description: 'We build scalable, high-performance websites and applications with cutting-edge technology.',
-    href: '/services',
+    icon: <Scissors size={36} />,
+    title: 'Post-Production & Editing',
+    description: 'We combine expert editing techniques, colour grading and sound design to shape raw footage into polished, engaging videos that leave a lasting impression.',
+    href: '/services'
   },
   {
-    icon: <LineChart size={36} />,
-    title: 'Digital Marketing',
-    description: 'Strategic marketing solutions to increase your online presence and drive targeted traffic.',
-    href: '/services',
+    icon: <Sparkles size={36} />,
+    title: 'Motion Graphics & Animation',
+    description: 'Add extra flair to your projects with animated elements and graphics that underscore key messages, enhance storytelling and help you stand out in the market.',
+    href: '/services'
   },
   {
-    icon: <Layers size={36} />,
-    title: 'UI/UX Design',
-    description: 'Creating intuitive user experiences and interfaces that delight users and achieve business goals.',
-    href: '/services',
+    icon: <Video size={36} />,
+    title: 'Commercial & Corporate Films',
+    description: 'Whether you\'re launching a product or refining your brand, we produce visually stunning corporate and commercial videos that resonate with clients and customers alike.',
+    href: '/services'
   },
   {
-    icon: <Share2 size={36} />,
-    title: 'Content Creation',
-    description: 'Compelling copy and visual content that tells your story and engages your audience.',
-    href: '/services',
-  },
+    icon: <Music size={36} />,
+    title: 'Live Events & Music Videos',
+    description: 'From multi-camera event coverage to atmospheric music videos, we capture the energy of live performances and transform them into memorable, cinematic experiences.',
+    href: '/services'
+  }
 ];
 
 const containerVariants = {
@@ -83,7 +83,7 @@ export function Services() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-klaxon-white text-opacity-80 max-w-2xl mx-auto"
           >
-            We offer a comprehensive range of digital services to help your business stand out and succeed in the digital landscape.
+            We're a nimble team of four dedicated to producing standout video content for brands of every size. From concept to final edit, we bring cinematic expertise and fresh ideas to each project, ensuring your story truly shines.
           </motion.p>
         </div>
 

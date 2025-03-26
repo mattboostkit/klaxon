@@ -7,8 +7,8 @@ export default defineConfig({
   name: 'default',
   title: 'Klaxon Studio',
 
-  projectId: 'your-project-id', // Replace with your Sanity project ID
-  dataset: 'production',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'lcql4dst',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'klaxon',
 
   plugins: [deskTool(), visionTool()],
 

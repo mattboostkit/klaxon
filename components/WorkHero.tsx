@@ -12,7 +12,7 @@ export function WorkHero() {
           transition={{ duration: 0.5 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Work</h1>
+          <h1 className="text-5xl md:text-6xl font-bold mb-6">Our Portfolio</h1>
           <p className="text-xl md:text-2xl text-klaxon-gray-light mb-8">
             Explore our portfolio of creative projects and successful collaborations
           </p>

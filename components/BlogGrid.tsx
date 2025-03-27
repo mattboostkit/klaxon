@@ -41,10 +41,10 @@ const itemVariants = {
 interface BlogGridProps {
   searchQuery: string;
   selectedCategory: string | null;
-  posts?: any[]; // Make posts optional to maintain backward compatibility
+  initialPosts?: any[]; // Renamed from posts
 }
 
-export function BlogGrid({ searchQuery, selectedCategory, posts: propPosts }: BlogGridProps) {
+export function BlogGrid({ searchQuery, selectedCategory, initialPosts: propPosts }: BlogGridProps) { // Renamed posts: propPosts
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(!propPosts);
 

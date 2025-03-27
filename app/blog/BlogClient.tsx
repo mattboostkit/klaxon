@@ -58,10 +58,10 @@ export default function BlogClient({ categories, posts }: ClientBlogPageProps) {
         ))}
       </motion.div>
       
-      <BlogGrid 
-        searchQuery={searchQuery} 
-        selectedCategory={selectedCategory} 
-        posts={posts}
+      <BlogGrid
+        searchQuery={searchQuery}
+        selectedCategory={selectedCategory}
+        initialPosts={posts} // Renamed from posts
       />
     </>
   );

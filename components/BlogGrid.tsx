@@ -40,13 +40,26 @@ const itemVariants = {
 interface BlogGridProps {
   searchQuery: string;
   selectedCategory: string | null;
+  posts?: any[]; // Make posts optional to maintain backward compatibility
 }
 
-export function BlogGrid({ searchQuery, selectedCategory }: BlogGridProps) {
+export function BlogGrid({ searchQuery, selectedCategory, posts: propPosts }: BlogGridProps) {
   const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!propPosts);
 
   useEffect(() => {
+    // If posts are provided as props, use them
+    if (propPosts) {
+      const formattedPosts = propPosts.map((post: any) => ({
+        ...post,
+        date: post.date instanceof Date ? post.date : new Date(post.date),
+      }));
+      setPosts(formattedPosts);
+      setLoading(false);
+      return;
+    }
+    
+    // Otherwise fetch posts
     async function fetchPosts() {
       try {
         // In a real app, this would be an API call to your backend
@@ -69,7 +82,7 @@ export function BlogGrid({ searchQuery, selectedCategory }: BlogGridProps) {
     }
 
     fetchPosts();
-  }, []);
+  }, [propPosts]);
 
   // Filter posts based on search query and selected category
   const filteredPosts = posts.filter((post) => {

@@ -10,7 +10,7 @@
     "create-dummy-content": "node scripts/create-dummy-content.js"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.0",
+    "@hookform/resolvers": "^3.3.4",
     "@next/swc-wasm-nodejs": "13.5.1",
     "@portabletext/react": "^3.0.11",
     "@radix-ui/react-accordion": "^1.2.0",

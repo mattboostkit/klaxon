@@ -51,7 +51,7 @@ export default async function BlogPage() {
   
   return (
     <>
-      <BlogHero onSearch={(query) => {}} />
+      <BlogHero />
       <section className="py-16 bg-klaxon-gray">
         <div className="container mx-auto px-6">
           <Suspense fallback={<div className="h-96 flex items-center justify-center">

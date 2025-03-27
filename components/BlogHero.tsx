@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Search } from 'lucide-react';
 
 interface BlogHeroProps {
-  onSearch: (query: string) => void;
+  onSearch?: (query: string) => void;
 }
 
 export function BlogHero({ onSearch }: BlogHeroProps) {
@@ -13,7 +13,12 @@ export function BlogHero({ onSearch }: BlogHeroProps) {
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSearch(searchQuery);
+    if (onSearch) {
+      onSearch(searchQuery);
+    }
+    // If no onSearch handler is provided, we can handle the search locally
+    // For example, we could update the URL with a search query parameter
+    console.log("Search query:", searchQuery);
   };
 
   return (

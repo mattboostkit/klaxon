@@ -8,13 +8,14 @@ import { useEffect, useState } from 'react';
 
 // Define the Post type
 interface Post {
-  id: number;
+  _id: string;
   title: string;
   excerpt: string;
   category: string;
   author: string;
   date: Date;
-  imageUrl: string;
+  publishedAt?: string;
+  imageUrl?: string;
   href: string;
 }
 
@@ -44,21 +45,25 @@ export function LatestPosts() {
   useEffect(() => {
     async function fetchPosts() {
       try {
-        // In a real app, this would be an API call to your backend
-        // For now, we'll import the mock data directly
-        const { getPosts } = await import('@/lib/sanity.client');
-        const fetchedPosts = await getPosts();
+        const response = await fetch('/api/posts');
+        if (!response.ok) {
+          throw new Error('Failed to fetch posts');
+        }
+        const fetchedPosts = await response.json();
         
         // Convert string dates to Date objects if needed
         const formattedPosts = fetchedPosts.map((post: any) => ({
           ...post,
-          date: post.date instanceof Date ? post.date : new Date(post.date),
+          date: post.date instanceof Date ? post.date : new Date(post.publishedAt || Date.now()),
+          imageUrl: post.imageUrl || undefined // Ensure imageUrl is undefined if empty
         }));
         
         // Only show the first 3 posts
         setPosts(formattedPosts.slice(0, 3));
       } catch (error) {
         console.error('Error fetching posts:', error);
+        // If there's an error (like 401), just set empty posts to avoid breaking the UI
+        setPosts([]);
       } finally {
         setLoading(false);
       }
@@ -119,6 +124,12 @@ export function LatestPosts() {
           <div className="flex justify-center py-12">
             <div className="w-12 h-12 border-4 border-klaxon-accent border-t-transparent rounded-full animate-spin"></div>
           </div>
+        ) : posts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-klaxon-white text-opacity-70">
+              No posts available at the moment. Check back soon!
+            </p>
+          </div>
         ) : (
           <motion.div
             variants={containerVariants}
@@ -129,19 +140,31 @@ export function LatestPosts() {
           >
             {posts.map((post) => (
               <motion.article
-                key={post.id}
+                key={post._id}
                 variants={itemVariants}
                 className="bg-klaxon-black rounded-lg overflow-hidden group cursor-pointer"
               >
                 <Link href={post.href} className="block">
-                  <div className="relative h-48 overflow-hidden">
-                    <Image
-                      src={post.imageUrl}
-                      alt={post.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    />
+                  <div className="relative h-48 overflow-hidden bg-klaxon-gray-dark">
+                    {post.imageUrl ? (
+                      <Image
+                        key={`image-${post._id}`}
+                        src={post.imageUrl}
+                        alt={post.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority={false}
+                      />
+                    ) : (
+                      <div 
+                        key={`no-image-${post._id}`}
+                        aria-hidden="true"
+                        className="absolute inset-0 flex items-center justify-center text-klaxon-white text-opacity-50"
+                      >
+                        No Image
+                      </div>
+                    )}
                   </div>
                   <div className="p-6">
                     <div className="flex items-center mb-3">

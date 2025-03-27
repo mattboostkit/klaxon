@@ -29,6 +29,7 @@ export function Hero() {
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
   const [videoData, setVideoData] = useState<VideoData | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [videoError, setVideoError] = useState(false);
 
   useEffect(() => {
     // Fetch the latest video from Sanity
@@ -54,6 +55,7 @@ export function Hero() {
         setVideoData(data);
       } catch (error) {
         console.error("Error fetching video from Sanity:", error);
+        setVideoError(true);
       }
     }
     
@@ -66,8 +68,22 @@ export function Hero() {
       video.addEventListener('loadeddata', () => {
         setIsVideoLoaded(true);
       });
+      
+      video.addEventListener('error', () => {
+        console.error("Error loading video");
+        setVideoError(true);
+      });
     }
-  }, [videoData]);
+    
+    // Set a timeout to handle cases where the video never loads
+    const timeout = setTimeout(() => {
+      if (!isVideoLoaded) {
+        setVideoError(true);
+      }
+    }, 5000);
+    
+    return () => clearTimeout(timeout);
+  }, [videoData, isVideoLoaded]);
 
   // Handle escape key to close modal
   useEffect(() => {
@@ -108,15 +124,24 @@ export function Hero() {
   }, [showModal]);
 
   return (
-    <section className="hero hero-home h-screen w-full bg-no-repeat bg-cover bg-top relative overflow-hidden">
-      {/* Video Background */}
-      {!isVideoLoaded && (
+    <section className="hero hero-home h-screen w-full bg-no-repeat bg-cover bg-top relative overflow-hidden bg-klaxon-black">
+      {/* Video Background or Fallback */}
+      {!isVideoLoaded && !videoError && (
         <div className="absolute inset-0 flex items-center justify-center bg-klaxon-black">
           <div className="w-16 h-16 border-4 border-klaxon-accent border-t-transparent rounded-full animate-spin"></div>
         </div>
       )}
       
-      {videoData && (
+      {videoError && (
+        <div className="absolute inset-0 bg-klaxon-black">
+          <div 
+            className="absolute inset-0 bg-center bg-cover opacity-30"
+            style={{ backgroundImage: "url('/placeholder.jpg')" }}
+          ></div>
+        </div>
+      )}
+      
+      {videoData && !videoError && (
         <div className="absolute bottom-0 left-0 w-full h-full overflow-hidden z-0">
           <video
             ref={videoRef}
@@ -126,9 +151,12 @@ export function Hero() {
             playsInline
             className="absolute top-0 left-0 w-full h-full object-cover"
             style={{ opacity: isVideoLoaded ? 1 : 0, transition: 'opacity 1s ease' }}
-            poster={videoData.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : undefined}
+            poster={videoData.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
+            onError={() => setVideoError(true)}
           >
-            <source src={videoData.videoFile.asset.url} type="video/mp4" />
+            {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
+              <source src={videoData.videoFile.asset.url} type="video/mp4" />
+            ) : null}
             Your browser does not support the video tag.
           </video>
         </div>
@@ -212,16 +240,34 @@ export function Hero() {
               </svg>
             </button>
             
-            <video
-              ref={modalVideoRef}
-              controls
-              autoPlay
-              className="w-full h-full object-contain"
-              poster={videoData?.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : undefined}
-            >
-              <source src="/showreel.mp4" type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            <div className="w-full h-full flex items-center justify-center">
+              {/* Fallback message when no video is available */}
+              {!videoData || videoError ? (
+                <div className="text-white text-center p-8">
+                  <h3 className="text-2xl font-bold mb-4">Showreel Video Not Available</h3>
+                  <p>The showreel video is currently unavailable. Please check back later.</p>
+                </div>
+              ) : (
+                <video
+                  ref={modalVideoRef}
+                  controls
+                  autoPlay
+                  className="w-full h-full object-contain"
+                  poster={videoData?.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
+                  onError={(e) => {
+                    console.error("Error loading modal video", e);
+                    setVideoError(true);
+                  }}
+                >
+                  {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
+                    <source src={videoData.videoFile.asset.url} type="video/mp4" />
+                  ) : (
+                    <source src="/showreel.mp4" type="video/mp4" />
+                  )}
+                  Your browser does not support the video tag.
+                </video>
+              )}
+            </div>
           </div>
         </div>
       )}

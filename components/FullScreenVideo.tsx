@@ -1,7 +1,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { client } from '@/lib/sanity.client';
 import { urlFor } from '@/sanity/lib/image';
 
 interface VideoData {
@@ -25,28 +24,29 @@ export function FullScreenVideo() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoData, setVideoData] = useState<VideoData | null>(null);
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch the latest video from Sanity
     async function fetchVideo() {
-      const data = await client.fetch(`*[_type == "video"][0]{
-        _id,
-        title,
-        description,
-        videoFile{
-          asset->{
-            _ref,
-            url
-          }
-        },
-        poster{
-          asset->{
-            _ref
-          }
+      try {
+        const response = await fetch('/api/video');
+        if (!response.ok) {
+          throw new Error('Failed to fetch video');
         }
-      }`);
-      
-      setVideoData(data);
+        const data = await response.json();
+        
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        if (!data.videoFile?.asset?.url) {
+          throw new Error('Invalid video data');
+        }
+
+        setVideoData(data);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'Unknown error');
+      }
     }
     
     fetchVideo();
@@ -60,6 +60,14 @@ export function FullScreenVideo() {
       });
     }
   }, [videoData]);
+
+  if (error) {
+    return (
+      <div className="relative w-full h-screen flex items-center justify-center bg-klaxon-black text-white">
+        <p>Video unavailable: {error}</p>
+      </div>
+    );
+  }
 
   if (!videoData) {
     return (
@@ -87,7 +95,8 @@ export function FullScreenVideo() {
         playsInline
         className="object-cover w-full h-full"
         style={{ opacity: isVideoLoaded ? 1 : 0, transition: 'opacity 1s ease' }}
-        poster={videoData.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : undefined}
+        poster={videoData.poster?.asset?._ref ? urlFor(videoData.poster).url() : undefined}
+        onError={() => setError('Failed to load video')}
       >
         <source src={videoData.videoFile.asset.url} type="video/mp4" />
         Your browser does not support the video tag.

@@ -8,7 +8,7 @@ export default defineConfig({
   title: 'Klaxon Studio',
 
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'lcql4dst',
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'klaxon',
+  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
 
   plugins: [deskTool(), visionTool()],
 

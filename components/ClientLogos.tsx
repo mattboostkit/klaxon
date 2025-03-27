@@ -40,6 +40,8 @@ export function ClientLogos() {
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching logos:', error);
+        // If there's an error (like 401), just set empty logos to avoid breaking the UI
+        setLogos([]);
         setIsLoading(false);
       }
     }

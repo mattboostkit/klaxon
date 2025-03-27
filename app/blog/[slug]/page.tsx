@@ -5,12 +5,7 @@ import { PortableText } from '@portabletext/react';
 import { format } from 'date-fns';
 import type { Metadata } from 'next';
 
-type Props = {
-  params: { slug: string }
-  searchParams?: Record<string, string | string[] | undefined>
-}
-
-export async function generateMetadata(props: Props): Promise<Metadata> {
+export async function generateMetadata(props: any): Promise<Metadata> {
   const { params } = props;
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -106,7 +101,7 @@ const components = {
   },
 };
 
-export default async function BlogPost(props: Props) {
+export default async function BlogPost(props: any) {
   // Extract params from props
   const { params } = props;
   const slug = params.slug;

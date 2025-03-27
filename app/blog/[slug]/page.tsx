@@ -5,7 +5,15 @@ import { PortableText } from '@portabletext/react';
 import { format } from 'date-fns';
 import type { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
+interface PageParams {
+  slug: string;
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: PageParams;
+}): Promise<Metadata> {
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -46,7 +54,7 @@ export async function generateStaticParams() {
   const posts = await client.fetch(`*[_type == "post" && defined(slug.current)][].slug.current`);
   
   return posts.map((slug: string) => ({
-    slug,
+    params: { slug },
   }));
 }
 
@@ -103,9 +111,7 @@ const components = {
 export default async function BlogPost({
   params,
 }: {
-  params: {
-    slug: string;
-  };
+  params: PageParams;
 }) {
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{

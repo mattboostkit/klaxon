@@ -262,7 +262,7 @@ export function Hero() {
                   {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
                     <source src={videoData.videoFile.asset.url} type="video/mp4" />
                   ) : (
-                    <source src="/showreel.mp4" type="video/mp4" />
+                    <source src="/klaxon_showreel.mp4" type="video/mp4" />
                   )}
                   Your browser does not support the video tag.
                 </video>

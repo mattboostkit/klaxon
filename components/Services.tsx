@@ -83,7 +83,7 @@ export function Services() {
             transition={{ duration: 0.5, delay: 0.2 }}
             className="text-klaxon-white text-opacity-80 max-w-2xl mx-auto"
           >
-            We're a nimble team of four dedicated to producing standout video content for brands of every size. From concept to final edit, we bring cinematic expertise and fresh ideas to each project, ensuring your story truly shines.
+            We&apos;re a nimble team of four dedicated to producing standout video content for brands of every size. From concept to final edit, we bring cinematic expertise and fresh ideas to each project, ensuring your story truly shines.
           </motion.p>
         </div>
 

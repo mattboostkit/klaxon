@@ -22,7 +22,7 @@ export function AboutHero() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="text-xl text-gray-300 mb-6 leading-relaxed"
           >
-            Klaxon Studio is an independent video production company. Founded by three guys from England and a nomad from the Australian outback, we share a clear ethos of trust, pushing each other, and trying our hardest to find the best pint in London. What's most important to us however, is that we all love making standout video content.
+            Klaxon Studio is an independent video production company. Founded by three guys from England and a nomad from the Australian outback, we share a clear ethos of trust, pushing each other, and trying our hardest to find the best pint in London. What&apos;s most important to us however, is that we all love making standout video content.
           </motion.p>
           
           <motion.p 
@@ -31,7 +31,7 @@ export function AboutHero() {
             transition={{ duration: 0.8, delay: 0.3 }}
             className="text-xl text-gray-300 mb-6 leading-relaxed"
           >
-            Between us we have a wide range of overlapping expertise, diverse ideas and opinions. Throw us a tricky brief, technical challenge or challenging creative proposition and we'll kick it around between us to find a way to make it happen!
+            Between us we have a wide range of overlapping expertise, diverse ideas and opinions. Throw us a tricky brief, technical challenge or challenging creative proposition and we&apos;ll kick it around between us to find a way to make it happen!
           </motion.p>
 
           <motion.p 
@@ -40,7 +40,7 @@ export function AboutHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-xl text-gray-300 mb-6 leading-relaxed"
           >
-            We're totally adaptable when it comes to clients' needs for projects. We offer a number of different services to help brands and businesses create what our resident aussie Jake would call 'ripper' content.
+            We&apos;re totally adaptable when it comes to clients&apos; needs for projects. We offer a number of different services to help brands and businesses create what our resident aussie Jake would call &apos;ripper&apos; content.
           </motion.p>
 
           <motion.p 
@@ -49,7 +49,7 @@ export function AboutHero() {
             transition={{ duration: 0.8, delay: 0.5 }}
             className="text-xl text-gray-300 mb-6 leading-relaxed"
           >
-            Everyone likes to celebrate life's differences, including us, which is just as well because no two projects are ever the same. We have the experience, knowledge and expertise to make your project happen whichever way you wish to approach it.
+            Everyone likes to celebrate life&apos;s differences, including us, which is just as well because no two projects are ever the same. We have the experience, knowledge and expertise to make your project happen whichever way you wish to approach it.
           </motion.p>
 
           <motion.p 
@@ -58,7 +58,7 @@ export function AboutHero() {
             transition={{ duration: 0.8, delay: 0.6 }}
             className="text-xl text-gray-300 mb-10 leading-relaxed"
           >
-            We're always up for chatting new propositions through with potential clients, and, aside from the perfect pint, there's some strong coffee drinking knowledge in the office, so any excuse to meet up and chat ideas, we're fully on-board with!
+            We&apos;re always up for chatting new propositions through with potential clients, and, aside from the perfect pint, there&apos;s some strong coffee drinking knowledge in the office, so any excuse to meet up and chat ideas, we&apos;re fully on-board with!
           </motion.p>
           
           <motion.div

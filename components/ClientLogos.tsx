@@ -67,7 +67,7 @@ export function ClientLogos() {
       <div className="container mx-auto mb-8">
         <h2 className="text-3xl font-bold text-center text-klaxon-black mb-2">Our Clients</h2>
         <p className="text-center text-klaxon-gray max-w-2xl mx-auto">
-          We're proud to work with these amazing companies
+          We&apos;re proud to work with these amazing companies
         </p>
       </div>
       

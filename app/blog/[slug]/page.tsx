@@ -120,7 +120,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
       <div className="container mx-auto px-6 py-32">
         <h1 className="text-3xl font-bold text-center text-klaxon-white">Post not found</h1>
         <p className="text-center text-klaxon-white text-opacity-70 mt-4">
-          The post you're looking for does not exist or has been removed.
+          The post you&apos;re looking for does not exist or has been removed.
         </p>
       </div>
     );

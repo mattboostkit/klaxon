@@ -25,7 +25,7 @@ export function CTASection() {
             Ready to Transform Your <span className="text-klaxon-accent">Digital Presence</span>?
           </h2>
           <p className="text-klaxon-white text-opacity-80 mb-10 max-w-2xl mx-auto">
-            Let's collaborate and create something extraordinary together. Reach out to discuss your project or schedule a consultation with our team.
+            Let&apos;s collaborate and create something extraordinary together. Reach out to discuss your project or schedule a consultation with our team.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link 

@@ -84,7 +84,7 @@ export function PortfolioGrid({ selectedCategory }: PortfolioGridProps) {
       <div className="text-center py-12">
         <h3 className="text-2xl font-semibold text-klaxon-white mb-4">No projects found</h3>
         <p className="text-klaxon-white text-opacity-70">
-          Try selecting a different category to find what you're looking for.
+          Try selecting a different category to find what you&apos;re looking for.
         </p>
       </div>
     );

@@ -43,7 +43,7 @@ export function AboutSnippet() {
               Founded in 2020, Klaxon Studio is a creative agency that combines strategy, design, and technology to create memorable digital experiences for forward-thinking brands and businesses.
             </p>
             <p className="text-klaxon-white text-opacity-80 mb-8">
-              Our team of designers, developers, and marketing experts work collaboratively to deliver innovative solutions that help our clients stand out in today's competitive digital landscape.
+              Our team of designers, developers, and marketing experts work collaboratively to deliver innovative solutions that help our clients stand out in today&apos;s competitive digital landscape.
             </p>
             
             <div className="grid grid-cols-2 gap-8 mb-10">

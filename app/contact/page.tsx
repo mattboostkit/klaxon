@@ -101,7 +101,7 @@ export default function ContactPage() {
               Get in <span className="text-klaxon-accent">Touch</span>
             </h1>
             <p className="text-klaxon-white text-opacity-80">
-              Have a project in mind or just want to say hello? We'd love to hear from you.
+              Have a project in mind or just want to say hello? We&apos;d love to hear from you.
             </p>
           </motion.div>
 

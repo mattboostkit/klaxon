@@ -104,7 +104,7 @@ export async function GET() {
               {
                 _type: 'span',
                 _key: 'span1',
-                text: 'In the world of video production, storytelling is everything. It's not just about capturing beautiful shots, but about weaving those visuals into a compelling narrative that resonates with your audience.'
+                text: 'In the world of video production, storytelling is everything. It\'s not just about capturing beautiful shots, but about weaving those visuals into a compelling narrative that resonates with your audience.'
               }
             ],
             markDefs: []
@@ -130,7 +130,7 @@ export async function GET() {
               {
                 _type: 'span',
                 _key: 'span3',
-                text: 'Visual storytelling is the art of communicating a narrative through imagery, composition, and editing. It's what separates a random collection of shots from a cohesive story that moves people. When done right, visual storytelling creates an emotional connection with viewers that can influence their thoughts, feelings, and actions.'
+                text: 'Visual storytelling is the art of communicating a narrative through imagery, composition, and editing. It\'s what separates a random collection of shots from a cohesive story that moves people. When done right, visual storytelling creates an emotional connection with viewers that can influence their thoughts, feelings, and actions.'
               }
             ],
             markDefs: []
@@ -202,7 +202,7 @@ export async function GET() {
               {
                 _type: 'span',
                 _key: 'span3',
-                text: 'Artificial intelligence has revolutionized the editing process, automating time-consuming tasks like color correction, audio enhancement, and even content-aware editing. In 2025, we're seeing more sophisticated AI tools that can analyze footage and suggest edits based on storytelling principles.'
+                text: 'Artificial intelligence has revolutionized the editing process, automating time-consuming tasks like color correction, audio enhancement, and even content-aware editing. In 2025, we\'re seeing more sophisticated AI tools that can analyze footage and suggest edits based on storytelling principles.'
               }
             ],
             markDefs: []

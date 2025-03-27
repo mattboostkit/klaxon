@@ -15,7 +15,7 @@ export function ClientsSection() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">Trusted by Industry Leaders</h2>
           <p className="text-lg text-klaxon-gray-dark max-w-2xl mx-auto">
-            We've had the privilege of working with some amazing companies across various industries
+            We&apos;ve had the privilege of working with some amazing companies across various industries
           </p>
         </motion.div>
         

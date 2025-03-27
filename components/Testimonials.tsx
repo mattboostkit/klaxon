@@ -18,7 +18,7 @@ const testimonials = [
     image: "/placeholder-avatar.jpg"
   },
   {
-    quote: "Klaxon Studio's expertise in both design and development made them the perfect partner for our e-commerce platform. The results speak for themselves - our sales have increased by 40%.",
+    quote: "Klaxon Studio&apos;s expertise in both design and development made them the perfect partner for our e-commerce platform. The results speak for themselves - our sales have increased by 40%.",
     author: "Emma Rodriguez",
     position: "Founder, Artisan Collective",
     image: "/placeholder-avatar.jpg"
@@ -47,7 +47,7 @@ export function Testimonials() {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">What Our Clients Say</h2>
           <p className="text-lg text-klaxon-gray-dark max-w-2xl mx-auto">
-            Don't just take our word for it - hear from some of our satisfied clients
+            Don&apos;t just take our word for it - hear from some of our satisfied clients
           </p>
         </motion.div>
         
@@ -64,7 +64,7 @@ export function Testimonials() {
             className="bg-klaxon-white p-10 rounded-lg shadow-lg text-center"
           >
             <p className="text-xl md:text-2xl mb-8 text-klaxon-gray-dark italic">
-              "{testimonials[currentIndex].quote}"
+              &quot;{testimonials[currentIndex].quote}&quot;
             </p>
             <div className="flex flex-col items-center">
               <div className="w-16 h-16 rounded-full bg-klaxon-gray mb-4 overflow-hidden">

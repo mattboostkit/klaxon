@@ -19,21 +19,21 @@ export function TeamSection() {
       imageUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     },
     {
-      name: 'Sophia Chen',
-      role: 'Cinematographer & Co-Founder',
-      bio: 'With a background in feature films, Sophia founded Narrative Edge Films before merging with Klaxon to create stunning visuals that elevate every story.',
-      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
-    },
-    {
-      name: 'Marcus Johnson',
-      role: 'Editor & Sound Designer',
-      bio: 'Marcus transforms raw footage into polished narratives, with expertise in both visual editing and creating immersive soundscapes.',
+      name: 'Jake Kirby',
+      role: 'Director & Co-Founder',
+      bio: 'Jake brings technical expertise and creative problem-solving to every project, ensuring flawless execution from concept to delivery.',
       imageUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     },
     {
-      name: 'Olivia Patel',
-      role: 'Motion Graphics Artist',
-      bio: 'Specializing in animation and visual effects, Olivia adds the perfect finishing touches that make Klaxon\'s videos stand out from the competition.',
+      name: 'James England',
+      role: 'Director & Co-Founder',
+      bio: 'James combines strategic thinking with creative flair to develop compelling narratives that resonate with audiences.',
+      imageUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+    },
+    {
+      name: 'Matt Hill',
+      role: 'Director & Co-Founder',
+      bio: 'Matt oversees production operations with meticulous attention to detail, ensuring every project meets Klaxon\'s high standards.',
       imageUrl: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
     },
   ];
@@ -58,12 +58,12 @@ export function TeamSection() {
               viewport={{ once: true }}
               className="bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow"
             >
-              <div className="relative h-64 w-full">
+              <div className="relative h-64 w-full overflow-hidden">
                 <Image
                   src={member.imageUrl}
                   alt={member.name}
                   fill
-                  className="object-cover"
+                  className="object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="p-6">

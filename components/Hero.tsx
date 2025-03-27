@@ -143,7 +143,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold text-klaxon-white mb-2 uppercase leading-tight"
+          className="text-3xl md:text-5xl lg:text-6xl font-bold text-klaxon-white mb-2 uppercase leading-tight"
         >
           POWERFUL STORIES<br />
           <span className="text-klaxon-accent">THAT SPARK REAL EMOTION</span>

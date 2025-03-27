@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { urlFor } from '@/lib/sanity';
 import { PortableText } from '@portabletext/react';
 import { format } from 'date-fns';
+import type { Metadata } from 'next';
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   const post = await client.fetch(

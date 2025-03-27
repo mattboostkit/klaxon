@@ -82,6 +82,10 @@
     @apply bg-klaxon-black text-klaxon-white;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+
+  h1 {
+    @apply text-3xl font-bold md:text-4xl;
+  }
   
   .hero-video {
     width: 100%;

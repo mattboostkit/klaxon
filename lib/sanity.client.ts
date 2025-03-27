@@ -6,7 +6,7 @@ export const client = createClient({
   dataset,
   apiVersion,
   // Only use the token for authenticated requests, not for public content
-  // token: process.env.SANITY_API_TOKEN,
+  token: process.env.SANITY_API_TOKEN,
   useCdn: process.env.NODE_ENV === 'production',
 });
 

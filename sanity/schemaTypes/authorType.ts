@@ -27,13 +27,14 @@ export const authorType = defineType({
     }),
     defineField({
       name: 'bio',
+      title: 'Bio',
       type: 'array',
       of: [
-        defineArrayMember({
+        {
           type: 'block',
           styles: [{title: 'Normal', value: 'normal'}],
           lists: [],
-        }),
+        },
       ],
     }),
   ],

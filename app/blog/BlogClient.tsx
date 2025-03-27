@@ -61,7 +61,7 @@ export default function BlogClient({ categories, posts }: ClientBlogPageProps) {
       <BlogGrid 
         searchQuery={searchQuery} 
         selectedCategory={selectedCategory} 
-        posts={posts} 
+        posts={posts}
       />
     </>
   );

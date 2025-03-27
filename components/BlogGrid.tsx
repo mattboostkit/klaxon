@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { formatDistanceToNow } from 'date-fns';
 import { useEffect, useState } from 'react';
+import { urlFor } from '@/lib/sanity';
 
 // Define the Post type
 interface Post {
@@ -52,7 +53,11 @@ export function BlogGrid({ searchQuery, selectedCategory, posts: propPosts }: Bl
     if (propPosts) {
       const formattedPosts = propPosts.map((post: any) => ({
         ...post,
-        date: post.date instanceof Date ? post.date : new Date(post.date),
+        date: post.date instanceof Date ? post.date : new Date(post.publishedAt || Date.now()),
+        imageUrl: post.mainImage ? urlFor(post.mainImage).url() : '/placeholder.jpg',
+        href: `/blog/${post.slug.current}`,
+        id: post._id,
+        category: post.categories?.[0] || 'Uncategorized'
       }));
       setPosts(formattedPosts);
       setLoading(false);

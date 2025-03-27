@@ -7,9 +7,11 @@ import type { Metadata } from 'next';
 
 type Props = {
   params: { slug: string }
+  searchParams?: Record<string, string | string[] | undefined>
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata(props: Props): Promise<Metadata> {
+  const { params } = props;
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -104,7 +106,11 @@ const components = {
   },
 };
 
-export default async function BlogPost({ params }: Props) {
+export default async function BlogPost(props: Props) {
+  // Extract params from props
+  const { params } = props;
+  const slug = params.slug;
+  
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,

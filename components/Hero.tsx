@@ -177,6 +177,7 @@ export function Hero() {
       
       {videoData && !videoError && (
         <div className="absolute bottom-0 left-0 w-full h-full overflow-hidden z-0">
+          {/* Use a simplified video element to avoid CORS issues on client-side */}
           <video
             ref={videoRef}
             autoPlay
@@ -185,17 +186,10 @@ export function Hero() {
             playsInline
             className="absolute top-0 left-0 w-full h-full object-cover"
             style={{ opacity: isVideoLoaded ? 1 : 0, transition: 'opacity 1s ease' }}
-            poster={videoData.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
+            poster="/placeholder.jpg"
+            src="/videos/klaxon_showreel.mp4" // Direct src instead of source elements
             onError={() => setVideoError(true)}
           >
-            {/* Primary source from Sanity if available */}
-            {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
-              <source src={videoData.videoFile.asset.url} type="video/mp4" />
-            ) : null}
-            
-            {/* Fallback source from public folder */}
-            <source src="/klaxon_showreel.mp4" type="video/mp4" />
-            
             Your browser does not support the video tag.
           </video>
         </div>
@@ -292,34 +286,13 @@ export function Hero() {
                   controls
                   autoPlay
                   className="w-full h-full object-contain"
-                  poster={videoData?.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
+                  poster="/placeholder.jpg"
+                  src="/videos/klaxon_showreel.mp4"
                   onError={(e) => {
                     console.error("Error loading modal video", e);
-                    // Try to recover with fallback
-                    if (!usingFallback) {
-                      setUsingFallback(true);
-                      // Try to reload the video with fallback
-                      if (modalVideoRef.current) {
-                        modalVideoRef.current.src = '/klaxon_showreel.mp4';
-                        modalVideoRef.current.load();
-                        modalVideoRef.current.play().catch(err => {
-                          console.error("Failed to play fallback video:", err);
-                          setVideoError(true);
-                        });
-                      }
-                    } else {
-                      setVideoError(true);
-                    }
+                    setVideoError(true);
                   }}
                 >
-                  {/* Primary source from Sanity */}
-                  {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
-                    <source src={videoData.videoFile.asset.url} type="video/mp4" />
-                  ) : null}
-                  
-                  {/* Always include fallback source */}
-                  <source src="/klaxon_showreel.mp4" type="video/mp4" />
-                  
                   Your browser does not support the video tag.
                 </video>
               )}

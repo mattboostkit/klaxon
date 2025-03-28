@@ -19,9 +19,49 @@ interface Logo {
   order: number;
 }
 
+// Mock logos for when Sanity is unavailable or CORS errors occur
+const MOCK_LOGOS: Logo[] = [
+  {
+    _id: 'mock-logo-1',
+    name: 'Company 1',
+    image: { asset: { _ref: 'mock1' } },
+    isMainLogo: false,
+    order: 1
+  },
+  {
+    _id: 'mock-logo-2', 
+    name: 'Company 2',
+    image: { asset: { _ref: 'mock2' } },
+    isMainLogo: false,
+    order: 2
+  },
+  {
+    _id: 'mock-logo-3',
+    name: 'Company 3',
+    image: { asset: { _ref: 'mock3' } },
+    isMainLogo: false,
+    order: 3
+  },
+  {
+    _id: 'mock-logo-4',
+    name: 'Company 4',
+    image: { asset: { _ref: 'mock4' } },
+    isMainLogo: false,
+    order: 4
+  },
+  {
+    _id: 'mock-logo-5',
+    name: 'Company 5',
+    image: { asset: { _ref: 'mock5' } },
+    isMainLogo: false,
+    order: 5
+  }
+];
+
 export function ClientLogos() {
   const [logos, setLogos] = useState<Logo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [useLocalImages, setUseLocalImages] = useState(false);
 
   useEffect(() => {
     async function fetchLogos() {
@@ -36,12 +76,21 @@ export function ClientLogos() {
             order
           }
         `);
-        setLogos(data);
+        
+        if (data && data.length > 0) {
+          setLogos(data);
+        } else {
+          console.log("No logos found, using mock data");
+          setLogos(MOCK_LOGOS);
+          setUseLocalImages(true);
+        }
+        
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching logos:', error);
-        // If there's an error (like 401), just set empty logos to avoid breaking the UI
-        setLogos([]);
+        // If there's an error (like 401 or CORS), use mock logos
+        setLogos(MOCK_LOGOS);
+        setUseLocalImages(true);
         setIsLoading(false);
       }
     }
@@ -90,25 +139,45 @@ export function ClientLogos() {
                     className="block hover:opacity-80 transition-opacity"
                   >
                     <div className="relative h-16 w-32">
-                      {logo.image && logo.image.asset && logo.image.asset._ref && (
+                      {useLocalImages ? (
+                        // Use a local placeholder image if we're in fallback mode
+                        <div className="flex items-center justify-center h-full w-full bg-klaxon-gray-light rounded">
+                          <span className="text-sm font-medium text-klaxon-black">{logo.name}</span>
+                        </div>
+                      ) : logo.image && logo.image.asset && logo.image.asset._ref ? (
                         <Image
                           src={urlFor(logo.image).width(128).height(64).url()}
                           alt={logo.name}
                           fill
                           className="object-contain"
+                          onError={() => setUseLocalImages(true)}
                         />
+                      ) : (
+                        <div className="flex items-center justify-center h-full w-full bg-klaxon-gray-light rounded">
+                          <span className="text-sm font-medium text-klaxon-black">{logo.name}</span>
+                        </div>
                       )}
                     </div>
                   </Link>
                 ) : (
                   <div className="relative h-16 w-32">
-                    {logo.image && logo.image.asset && logo.image.asset._ref && (
+                    {useLocalImages ? (
+                      // Use a local placeholder image if we're in fallback mode
+                      <div className="flex items-center justify-center h-full w-full bg-klaxon-gray-light rounded">
+                        <span className="text-sm font-medium text-klaxon-black">{logo.name}</span>
+                      </div>
+                    ) : logo.image && logo.image.asset && logo.image.asset._ref ? (
                       <Image
                         src={urlFor(logo.image).width(128).height(64).url()}
                         alt={logo.name}
                         fill
                         className="object-contain"
+                        onError={() => setUseLocalImages(true)}
                       />
+                    ) : (
+                      <div className="flex items-center justify-center h-full w-full bg-klaxon-gray-light rounded">
+                        <span className="text-sm font-medium text-klaxon-black">{logo.name}</span>
+                      </div>
                     )}
                   </div>
                 )}

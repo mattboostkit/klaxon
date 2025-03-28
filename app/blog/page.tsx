@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { client } from '@/lib/sanity';
+import { client } from '@/lib/sanity.client';
 import { BlogHero } from '@/components/BlogHero';
 import { Newsletter } from '@/components/Newsletter';
 import { CTASection } from '@/components/CTASection';
@@ -9,6 +9,46 @@ export const metadata = {
   title: 'Blog | Klaxon Studio',
   description: 'Insights, tips, and resources from Klaxon Studio to help you navigate the video production landscape.',
 };
+
+// Fallback data for when Sanity is unavailable
+const MOCK_CATEGORIES = [
+  { title: 'Video Production' },
+  { title: 'Sound Design' },
+  { title: 'Editing' }
+];
+
+const MOCK_POSTS = [
+  {
+    _id: 'mock-post-1',
+    title: 'Video Editing Trends for 2025',
+    slug: { current: 'video-editing-trends-2025' },
+    excerpt: 'Discover the latest trends in video editing that will dominate 2025.',
+    mainImage: null,
+    publishedAt: new Date().toISOString(),
+    categories: ['Video Production', 'Editing'],
+    author: 'Klaxon Team'
+  },
+  {
+    _id: 'mock-post-2',
+    title: 'Visual Storytelling in Video Production',
+    slug: { current: 'visual-storytelling-video-production' },
+    excerpt: 'Learn how to tell compelling stories through visual elements in your videos.',
+    mainImage: null,
+    publishedAt: new Date().toISOString(),
+    categories: ['Video Production'],
+    author: 'Klaxon Team'
+  },
+  {
+    _id: 'mock-post-3',
+    title: 'The Art of Sound Design in Video Production',
+    slug: { current: 'sound-design-video-production' },
+    excerpt: 'Explore how sound design can elevate your video productions to new heights.',
+    mainImage: null,
+    publishedAt: new Date().toISOString(),
+    categories: ['Sound Design', 'Video Production'],
+    author: 'Klaxon Team'
+  }
+];
 
 async function getBlogCategories() {
   try {
@@ -20,7 +60,8 @@ async function getBlogCategories() {
     return categories;
   } catch (error) {
     console.error("Error fetching categories:", error);
-    return [];
+    // Return mock categories if Sanity fetch fails
+    return MOCK_CATEGORIES;
   }
 }
 
@@ -38,10 +79,17 @@ async function getBlogPosts() {
         "author": author->name
       }
     `);
+    
+    // If no posts were found or the array is empty, use mocks
+    if (!posts || posts.length === 0) {
+      return MOCK_POSTS;
+    }
+    
     return posts;
   } catch (error) {
     console.error("Error fetching posts:", error);
-    return [];
+    // Return mock posts if Sanity fetch fails
+    return MOCK_POSTS;
   }
 }
 

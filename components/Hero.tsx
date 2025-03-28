@@ -23,6 +23,11 @@ interface VideoData {
   };
 }
 
+// Default video path to use if Sanity is unavailable
+const DEFAULT_VIDEO_PATH = '/videos/default-video.mp4';
+// Update with a static video path if you have one
+// This should be a video file placed in the public/videos directory
+
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const modalVideoRef = useRef<HTMLVideoElement>(null);
@@ -30,6 +35,7 @@ export function Hero() {
   const [videoData, setVideoData] = useState<VideoData | null>(null);
   const [showModal, setShowModal] = useState(false);
   const [videoError, setVideoError] = useState(false);
+  const [usingFallback, setUsingFallback] = useState(false);
 
   useEffect(() => {
     // Fetch the latest video from Sanity
@@ -52,10 +58,38 @@ export function Hero() {
           }
         }`);
         
-        setVideoData(data);
+        // Check if we got valid data with a video URL
+        if (data && data.videoFile && data.videoFile.asset && data.videoFile.asset.url) {
+          setVideoData(data);
+        } else {
+          console.log("No valid video found in Sanity, using fallback");
+          setUsingFallback(true);
+          // Create mock video data with fallback
+          setVideoData({
+            _id: 'fallback-video',
+            title: 'Klaxon Showreel',
+            videoFile: {
+              asset: {
+                _ref: 'fallback',
+                url: '/klaxon_showreel.mp4', // This should be a video in your public folder
+              }
+            }
+          });
+        }
       } catch (error) {
         console.error("Error fetching video from Sanity:", error);
-        setVideoError(true);
+        setUsingFallback(true);
+        // Create mock video data with fallback
+        setVideoData({
+          _id: 'fallback-video',
+          title: 'Klaxon Showreel',
+          videoFile: {
+            asset: {
+              _ref: 'fallback',
+              url: '/klaxon_showreel.mp4', // This should be a video in your public folder
+            }
+          }
+        });
       }
     }
     
@@ -154,9 +188,14 @@ export function Hero() {
             poster={videoData.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
             onError={() => setVideoError(true)}
           >
+            {/* Primary source from Sanity if available */}
             {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
               <source src={videoData.videoFile.asset.url} type="video/mp4" />
             ) : null}
+            
+            {/* Fallback source from public folder */}
+            <source src="/klaxon_showreel.mp4" type="video/mp4" />
+            
             Your browser does not support the video tag.
           </video>
         </div>
@@ -256,14 +295,31 @@ export function Hero() {
                   poster={videoData?.poster && videoData.poster.asset && videoData.poster.asset._ref ? urlFor(videoData.poster).url() : '/placeholder.jpg'}
                   onError={(e) => {
                     console.error("Error loading modal video", e);
-                    setVideoError(true);
+                    // Try to recover with fallback
+                    if (!usingFallback) {
+                      setUsingFallback(true);
+                      // Try to reload the video with fallback
+                      if (modalVideoRef.current) {
+                        modalVideoRef.current.src = '/klaxon_showreel.mp4';
+                        modalVideoRef.current.load();
+                        modalVideoRef.current.play().catch(err => {
+                          console.error("Failed to play fallback video:", err);
+                          setVideoError(true);
+                        });
+                      }
+                    } else {
+                      setVideoError(true);
+                    }
                   }}
                 >
+                  {/* Primary source from Sanity */}
                   {videoData.videoFile && videoData.videoFile.asset && videoData.videoFile.asset.url ? (
                     <source src={videoData.videoFile.asset.url} type="video/mp4" />
-                  ) : (
-                    <source src="/klaxon_showreel.mp4" type="video/mp4" />
-                  )}
+                  ) : null}
+                  
+                  {/* Always include fallback source */}
+                  <source src="/klaxon_showreel.mp4" type="video/mp4" />
+                  
                   Your browser does not support the video tag.
                 </video>
               )}

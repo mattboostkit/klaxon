@@ -4,11 +4,12 @@ import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 // Create a client with fallback for image URLs
 export const client = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'lcql4dst',
+  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'placeholder-project-id',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  apiVersion: '2024-04-20',
-  useCdn: process.env.NODE_ENV === 'production',
+  apiVersion: '2025-03-27', // Use consistent API version
+  useCdn: false, // Disable CDN for build time
   token: process.env.SANITY_API_TOKEN,
+  perspective: 'published'
 });
 
 const builder = imageUrlBuilder(client);

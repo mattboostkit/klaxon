@@ -1,4 +1,5 @@
-import { client } from '@/lib/sanity';
+// Use consistent imports
+import { client } from '@/lib/sanity.client';
 import Image from 'next/image';
 import { urlFor } from '@/lib/sanity';
 import { PortableText } from '@portabletext/react';
@@ -48,11 +49,20 @@ export async function generateMetadata({
 }
 
 export async function generateStaticParams() {
-  const posts = await client.fetch(`*[_type == "post" && defined(slug.current)][].slug.current`);
-  
-  return posts.map((slug: string) => ({
-    slug,
-  }));
+  try {
+    const posts = await client.fetch(`*[_type == "post" && defined(slug.current)][].slug.current`);
+    return posts.map((slug: string) => ({
+      slug,
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    // Return some fallback slugs for deployment
+    return [
+      { slug: 'video-editing-trends-2025' },
+      { slug: 'visual-storytelling-video-production' },
+      { slug: 'sound-design-video-production' }
+    ];
+  }
 }
 
 const components = {

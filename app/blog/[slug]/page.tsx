@@ -5,8 +5,12 @@ import { PortableText } from '@portabletext/react';
 import { format } from 'date-fns';
 import type { Metadata } from 'next';
 
-export async function generateMetadata(props: any): Promise<Metadata> {
-  const { params } = props;
+export async function generateMetadata({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}): Promise<Metadata> {
+  const { slug } = await params;
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
       title,
@@ -14,7 +18,7 @@ export async function generateMetadata(props: any): Promise<Metadata> {
       "author": author->name,
       mainImage
     }`,
-    { slug: params.slug }
+    { slug }
   );
 
   if (!post) {
@@ -101,10 +105,13 @@ const components = {
   },
 };
 
-export default async function BlogPost(props: any) {
-  // Extract params from props
-  const { params } = props;
-  const slug = params.slug;
+export default async function BlogPost({
+  params
+}: {
+  params: Promise<{ slug: string }>
+}) {
+  // Extract slug from params Promise
+  const { slug } = await params;
   
   const post = await client.fetch(
     `*[_type == "post" && slug.current == $slug][0]{
@@ -118,7 +125,7 @@ export default async function BlogPost(props: any) {
       "categories": categories[]->title,
       "estimatedReadingTime": round(length(pt::text(body)) / 5 / 180)
     }`,
-    { slug: params.slug }
+    { slug }
   );
 
   if (!post) {
@@ -143,7 +150,7 @@ export default async function BlogPost(props: any) {
       "categories": categories[]->title
     }`,
     { 
-      slug: params.slug,
+      slug,
       categories: post.categories
     }
   );

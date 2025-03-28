@@ -10,4 +10,20 @@ export const client = createClient({
   perspective: 'published',
 });
 
+// Function to fetch blog posts
+export async function getPosts() {
+  return client.fetch(`
+    *[_type == "post" && defined(slug.current)] {
+      _id,
+      title,
+      excerpt,
+      "slug": slug,
+      mainImage,
+      publishedAt,
+      "categories": categories[]->title,
+      "author": author->name
+    } | order(publishedAt desc)
+  `);
+}
+
 // Server-side only functions should be moved to sanity.admin.ts
